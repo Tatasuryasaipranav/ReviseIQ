@@ -1,0 +1,32 @@
+========================================================
+  HOW TO FIX "Tenant or user not found" ERROR
+========================================================
+
+This error means the Session Pooler URL in your .env is wrong.
+
+STEP 1 — Get the correct URL from Supabase:
+  1. Go to https://supabase.com → your project
+  2. Click "Project Settings" (gear icon, left sidebar)
+  3. Click "Database"
+  4. Scroll to "Connection string"
+  5. Select tab: "Session pooler"
+  6. Copy the full connection string shown there
+
+STEP 2 — Open your .env file and replace DATABASE_URL:
+  DATABASE_URL=postgresql://postgres.[YOUR-PROJECT-REF]:[YOUR-PASSWORD]@[POOLER-HOST]:5432/postgres
+
+STEP 3 — The URL format must have:
+  ✅ Username:  postgres.pbqyqupaotfhugersjov   (note the dot, not colon)
+  ✅ Password:  QmoM3qxzrcV5jpjm
+  ✅ Host:      aws-0-XX-XXXXX-X.pooler.supabase.com  (check your region!)
+  ✅ Port:      5432
+  ✅ Database:  postgres
+
+COMMON MISTAKE — Wrong region prefix:
+  ❌ aws-1-ap-southeast-1   (wrong — "1" doesn't exist)
+  ✅ aws-1-ap-southeast-1   (correct — always "0")
+
+STEP 4 — Save .env then restart:
+  uvicorn main:app --reload
+
+========================================================
